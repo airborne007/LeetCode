@@ -34,8 +34,8 @@ func widthOfBinaryTree1(root *TreeNode) int {
 	}
 	ans := 0
 	type pair struct {
-		node    *TreeNode
-		positon int
+		node     *TreeNode
+		position int
 	}
 	queue := []pair{{root, 0}}
 	for len(queue) > 0 {
@@ -44,7 +44,7 @@ func widthOfBinaryTree1(root *TreeNode) int {
 		for i := 0; i < qlen; i++ {
 			p := queue[0]
 			queue = queue[1:]
-			node, position := p.node, p.positon
+			node, position := p.node, p.position
 			if i == 0 {
 				left = position
 			}

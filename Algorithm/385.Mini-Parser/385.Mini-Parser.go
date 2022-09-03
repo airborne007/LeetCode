@@ -54,15 +54,15 @@ func deserialize(s string) *NestedInteger {
 			return ni
 		}
 
-		isNegtive := s[idx] == '-'
-		if isNegtive {
+		isNegative := s[idx] == '-'
+		if isNegative {
 			idx++
 		}
 		num := 0
 		for ; idx < len(s) && unicode.IsDigit(rune(s[idx])); idx++ {
 			num = num*10 + int(s[idx]-'0')
 		}
-		if isNegtive {
+		if isNegative {
 			num = -num
 		}
 		ni.SetInteger(num)
@@ -81,26 +81,26 @@ func deserialize1(s string) *NestedInteger {
 	}
 
 	stk := []*NestedInteger{}
-	num, isNegtive := 0, false
+	num, isNegative := 0, false
 	for i, ch := range s {
 		if ch == '[' {
 			stk = append(stk, &NestedInteger{})
 		} else if ch == ']' || ch == ',' {
 			if unicode.IsDigit(rune(s[i-1])) {
-				if isNegtive {
+				if isNegative {
 					num = -num
 				}
 				ni := NestedInteger{}
 				ni.SetInteger(num)
 				stk[len(stk)-1].Add(ni)
 			}
-			num, isNegtive = 0, false
+			num, isNegative = 0, false
 			if ch == ']' && len(stk) > 1 {
 				stk[len(stk)-2].Add(*stk[len(stk)-1])
 				stk = stk[:len(stk)-1]
 			}
 		} else if ch == '-' {
-			isNegtive = true
+			isNegative = true
 		} else if unicode.IsDigit(ch) {
 			num = num*10 + int(ch-'0')
 		}
